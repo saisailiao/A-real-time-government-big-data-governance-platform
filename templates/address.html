@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+
+        #allmap {
+            height: 700px;
+            width: 100%;
+        }
+
+        #r-result {
+            width: 100%;
+            font-size: 14px;
+        }
+    </style>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=QTxv8AafqkRxWbzyoUWvZ0ElSjAtQU2F"></script>
+    <title>经纬度定位</title>
+</head>
+<body>
+<div id="allmap"></div>
+<div id="r-result">
+
+    <input type="button" value="获取我的位置" onclick="get_location()"/>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(114.3572650000, 22.6962590000), 13);
+    map.enableScrollWheelZoom(true);
+    var navigationControl = new BMap.NavigationControl({
+        // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+    });
+    map.addControl(navigationControl);
+
+    function get_location() {
+
+        var address_latitude ={{ address_latitude |safe}};
+        var address_longitude ={{ address_longitude|safe }};
+        var address_data ={{ address_data |safe}};
+        var address_hot = {{ address_hot|safe }};
+
+        var point = []; //存放标注点经纬信息的数组
+        var marker = []; //存放标注点对象的数组
+        var greenIcon = new BMap.Icon("/static/img/green.png",new BMap.Size(30,40));
+        var purpleIcon = new BMap.Icon("/static/img/purple.png",new BMap.Size(40,30));
+        var redIcon = new BMap.Icon("/static/img/red.png",new BMap.Size(40,30));
+
+        for (var i = 0; i < address_longitude.length; i++) {
+            point[i] = new BMap.Point(address_longitude[i], address_latitude[i]); //循环生成新的地图点
+            marker[i] = new BMap.Marker(point[i]); //按照地图点坐标生成标记
+
+            if(address_hot[i]<3){      //热度大于5使用其他的
+                marker[i] = new BMap.Marker(point[i],{icon:greenIcon});
+            }
+            else if(address_hot[i]>=3&&address_hot[i]<=6){
+                marker[i] = new BMap.Marker(point[i],{icon: purpleIcon});
+            }
+            else{
+                marker[i] = new BMap.Marker(point[i],{icon:redIcon});
+            }
+
+            map.addOverlay(marker[i]);
+
+
+
+        }
+
+        for (i = 0; i < marker.length; i++) {
+            (function () {
+                var index = i;
+                marker[index].addEventListener('click', function () {
+                    this.openInfoWindow(new BMap.InfoWindow(address_data[index]+"\n当天热度："+address_hot[index]));
+                });
+            })();
+        }
+    }
+
+</script>

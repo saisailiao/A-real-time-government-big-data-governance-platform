@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>坪山区政府大数据管理平台</title>
+    <!-- Bootstrap core CSS-->
+  <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="/static/css/sb-admin.css" rel="stylesheet">
+  <!-- 引入 echarts.js -->
+  <script src="/static/js/echarts.min.js"></script>
+  <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon" />
+  <link href="/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <script src="/static/js/spop.js"></script>
+    <link href="/static/css/spop.css" rel="stylesheet">
+   <style>
+       #nav2 {
+			background: #2f333e;
+			left: 0;
+			list-style: none;
+			overflow: hidden;
+			padding-top: 10px;
+			position: fixed;
+			right: 0;
+			text-align: center;
+			bottom:-16px;
+		}
+		#nav2 li {
+			display: inline-block;
+			margin-bottom: 0;
+		}
+		#nav2 a {
+			background: #2f333e;
+            text-decoration: none;
+			color:  rgba(255, 255, 255, 0.5);
+			display: block;
+			padding: 10px;
+		}
+		#nav2 a:hover {
+			background: none;
+			color: rgba(255, 255, 255, 0.75);
+		}
+		#nav2 .current a {
+			background: #2f333e;
+			color: #dadada;
+		}
+    </style>
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<div class="position" id="mafan"></div>
+   <script> spop({
+    template : '<h5 class="spop-title">警报</h5>坪山街道 六联社区 道路破损<br/><br/> <a href="/Alarm" data-spop="close">查看全部警报</a>',
+    style : 'error',
+    position  : 'top-right',
+    });
+    </script>
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+
+    <!-- 头部导航-->
+    <a class="navbar-brand" href="/View/">坪山区政府大数据管理平台</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- 底部导航-->
+    <div class = "side_menu">
+    <ul id="nav2">
+    <li><a href="#chart1">堆叠极坐标图</a></li>
+    <li><a href="#chart2">堆叠柱状图</a></li>
+    <li><a href="#chart3">堆叠区域图</a></li>
+    <li><a href="#page-top"><i class="fa fa-arrow-up"></i>回到顶端</a></li>
+    <li><a href="#mafan"></a></li>
+    </ul>
+    </div>
+    <!-- 左侧导航-->
+   <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="/View/View1">
+            <i class="fa fa-fw fa-pie-chart"></i>
+            <span class="nav-link-text">查看百分比</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="/View/View2">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text">各街道民生事件情况</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="/View/View3">
+            <i class="fa fa-fw fa-map"></i>
+            <span class="nav-link-text">查看热点社区</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="/View/View4">
+            <i class="fa fa-fw fa-bar-chart"></i>
+            <span class="nav-link-text">事件结办情况</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="/Alarm/">
+            <i class="fa fa-fw fa-calendar-check-o"></i>
+            <span class="nav-link-text">警报 未结办事件</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i class="fa fa-fw fa-angle-left"></i>
+          </a>
+        </li>
+      </ul>
+        <!--头部栏-->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-envelope"></i>
+            <span class="d-lg-none">留言
+              <span class="badge badge-pill badge-primary">12条新留言</span>
+            </span>
+            <span class="indicator text-primary d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+          </a>
+            <!--留言-->
+          <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+            <h6 class="dropdown-header">新留言:</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <strong>卢局长</strong>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">请各办公室注意做好清洁工作.</div>
+            </a>
+
+        </li>
+            <!--警报-->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-bell"></i>
+            <span class="d-lg-none">警报
+              <span class="badge badge-pill badge-warning">6条新警报</span>
+            </span>
+            <span class="indicator text-warning d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+            <h6 class="dropdown-header">新警报:</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/Alarm">
+              <span class="text-success">
+                <strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i>自动通报</strong>
+              </span>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">坪山街道 六联社区 道路破损</div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item small" href="/Alarm">查看所有警报</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-fw fa-sign-out"></i>登出</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="/View">首页</a>
+        </li>
+        <li class="breadcrumb-item active">事件结办情况</li>
+      </ol>
+      <div class="row">
+          <!-- import data Chart Example-->
+        <div class="col-lg-12" id="chart1">
+            <div class="card ">
+                <div class="card-header">
+                  <i class="fa fa-pie-chart"></i>堆叠极坐标图</div>
+                <div class="card-body">
+                    <div class="row">
+                        <div id="main" style="width: 450px;height:600px;"></div>
+                            <script>
+                        // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('main'),'light');
+                    var test2 = {{ msg_json|safe}}
+                    option = {
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        angleAxis: {
+
+                        },
+                        radiusAxis: {
+                            type: 'category',
+                            data: test2['结办类型'],
+                            z: 10,
+                            axisLabel: {
+                            textStyle: {
+                            fontSize:'11',
+                            },
+                        },
+                        },
+                        polar: {
+                        },
+                        series: [{
+                            type: 'bar',
+                            data: test2['市容环卫'],
+                            coordinateSystem: 'polar',
+                            name: '市容环卫',
+                            stack: 'a'
+                        }, {
+                            type: 'bar',
+                            data: test2['环保水务'],
+                            coordinateSystem: 'polar',
+                            name: '环保水务',
+                            stack: 'a'
+                        }, {
+                            type: 'bar',
+                            data: test2['市政设施'],
+                            coordinateSystem: 'polar',
+                            name: '市政设施',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['规土城建'],
+                            coordinateSystem: 'polar',
+                            name: '规土城建',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['教育卫生'],
+                            coordinateSystem: 'polar',
+                            name: '教育卫生',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['安全隐患'],
+                            coordinateSystem: 'polar',
+                            name: '安全隐患',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['组织人事'],
+                            coordinateSystem: 'polar',
+                            name: '组织人事',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['党纪政纪'],
+                            coordinateSystem: 'polar',
+                            name: '党纪政纪',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['劳动社保'],
+                            coordinateSystem: 'polar',
+                            name: '劳动社保',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['社区管理'],
+                            coordinateSystem: 'polar',
+                            name: '社区管理',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['治安维稳'],
+                            coordinateSystem: 'polar',
+                            name: '治安维稳',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['专业事件采集'],
+                            coordinateSystem: 'polar',
+                            name: '专业事件采集',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['统一战线'],
+                            coordinateSystem: 'polar',
+                            name: '统一战线',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['民政服务'],
+                            coordinateSystem: 'polar',
+                            name: '民政服务',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['文体旅游'],
+                            coordinateSystem: 'polar',
+                            name: '文体旅游',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['食药市监'],
+                            coordinateSystem: 'polar',
+                            name: '食药市监',
+                            stack: 'a'
+                        },
+                        {
+                            type: 'bar',
+                            data: test2['党建群团'],
+                            coordinateSystem: 'polar',
+                            name: '党建群团',
+                            stack: 'a'
+                        },
+                        ],
+                        tooltip : {
+                            trigger: 'axis',
+                            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        grid:{
+                            right:'30%',
+                            containLabel: true
+                        },
+                        legend: {
+                        data: ["市容环卫", "环保水务", "市政设施", "规土城建", "教育卫生", "安全隐患", "组织人事", "党纪政纪", "劳动社保", "社区管理", "交通运输", "治安维稳", "专业事件采集", "统一战线", "民政服务", "文体旅游", "食药市监", "党建群团"]
+                        },
+                    };
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    </script>
+
+                        <form method="get" action="/View/View4"  class="form" >
+                            <br/>
+                             <h5><b>按月份、季度、起止日期三选一查看事件结办情况</b></h5> <br/> <br/>
+                          <div class="container"  align="left" >
+                                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapseOne" onclick="work1()">
+                                    按月份查询
+                                </button><br/><br/>
+                                <div id="collapseOne" class="collapse in">
+                                        <div class="col form-group">
+                                          <div class="col-lg-12 col-md-6">
+
+                                              <input class="form-control form_month" name="given_month" id="month" type="text" placeholder="请选择月份" readonly>
+                                          </div>
+                                      </div>
+                                </div>
+                                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapseTwo"  onclick="work2()">
+                                    按季度查询
+                                </button><br/><br/>
+                                <div id="collapseTwo" class="collapse in">
+                                 <div class="col form-group">
+                                      <div class="col-lg-12 col-md-6">
+                                          <select class="form-control" name="given_quarter" id="quarter">
+                                            <option value="">请选择季度</option>
+                                            <option value="0">第一季度</option>
+                                            <option value="1">第二季度</option>
+                                            <option value="2">第三季度</option>
+                                            <option value="3">第四季度</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                </div>
+                                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapse" onclick="work3()">
+                                        按起止日期查询
+                                  </button><br/><br/>
+                                <div id="collapse" class="collapse in">
+                                    <div class="col form-group">
+                                      <div class="col-lg-12 col-md-6">
+                                           <div class="col form-group">
+                                              <div class="col-lg-12 col-md-6">
+                                                  <br/>
+                                                  <input class="form-control form_start_end" name="start" id="start" type="text" placeholder="请选择起始日期" readonly>
+                                                  <br/>
+                                                  <input class="form-control form_start_end" name="end" id="end" type="text" placeholder="请选择终止日期" readonly>
+                                              </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                            </div>
+                            <div class="col form-group">
+                                  <button type="submit" class="btn btn-primary">查询</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+            <div class="card-footer small text-muted" id="show1">{{ date|safe}}</div>
+                <script>
+                    var str={{ date|safe}};
+                    document.getElementById("show1").innerHTML=str;
+                </script>
+          </div>
+        </div>
+          <!-- Example Bar Chart Card-->
+        <div class="col-lg-12" id="chart2">
+            <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-line-chart"></i>堆叠折线图</div>
+            <div class="card-body">
+                <div id="main2" style="width: 600px;height:400px;"></div>
+                <!-- Example Bar Chart Card-->
+                <script>
+                // 基于准备好的dom，初始化echarts实例
+                var myChart3 = echarts.init(document.getElementById('main2'),'light');
+                var test2 = {{ msg_json|safe}}
+                    //console.log (test2["各事件总和"]);
+                delete test2["各事件总和"];
+                var labelname = test2["结办类型"];
+                delete test2["结办类型"];
+                var value1 = [];
+                var value2 = [];
+                var value3 = [];
+                for(i in test2){
+                    value1.push(test2[i][0]);
+                }
+                for(i in test2){
+                    value2.push(test2[i][1]);
+                }
+                for(i in test2){
+                    value3.push(test2[i][2]);
+                }
+                    option = {
+                        title: {
+                            text: '三类事件总览'
+                        },
+                        tooltip : {
+                            trigger: 'axis',
+                            borderWidth:0,
+                            axisPointer: {
+                                type: 'shadow',
+                                label: {
+                                    backgroundColor: '#6a7985'
+                                }
+                            }
+                        },
+                        legend: {
+                            data:labelname
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: ["市容环卫", "环保水务", "市政设施", "规土城建", "教育卫生", "安全隐患", "组织人事", "党纪政纪", "劳动社保", "社区管理", "交通运输", "治安维稳", "专业事件采集", "统一战线", "民政服务", "文体旅游", "食药市监", "党建群团"],
+                            axisLabel: {
+                               interval:0,
+                               rotate:40
+                            }
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        dataZoom: [
+                            {   // 这个dataZoom组件，默认控制x轴。
+                                type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+                                start: 10,      // 左边在 10% 的位置。
+                                end: 60         // 右边在 60% 的位置。
+                            },
+                            {   // 这个dataZoom组件，也控制x轴。
+                                type: 'inside', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
+                                start: 10,      // 左边在 10% 的位置。
+                                end: 60         // 右边在 60% 的位置。
+                            }
+                        ],
+                        series: [
+                            {
+                                name:'处置中',
+                                type:'line',
+                                data:value1
+                            },
+                            {
+                                name:'按期结办',
+                                type:'line',
+                                data:value2
+                            },
+                            {
+                                name:'超期结办',
+                                type:'line',
+                                data:value3
+                            }
+                        ]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart3.setOption(option);
+    </script>
+              <!--canvas id="myBarChart" width="100" height="50" type="pie"></canvas-->
+            </div>
+            <div class="card-footer small text-muted" id="show2">{{ date|safe}}</div>
+                <script>
+                    var str={{ date|safe}};
+                    document.getElementById("show2").innerHTML=str;
+                </script>
+          </div>
+        </div>
+        <!-- Example Pie Chart Card-->
+        <div class="col-lg-12" id="chart3">
+            <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i>堆叠柱状图</div>
+            <div class="card-body">
+                <div id="main3" style="width: 600px;height:400px;"></div>
+                <!-- Example Bar Chart Card-->
+                <script>
+                    // 基于准备好的dom，初始化echarts实例
+                var myChart3 = echarts.init(document.getElementById('main3'),'light');
+                var test2 ={{ msg_json|safe}}
+                option = {
+                    toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                    tooltip : {
+                        trigger: 'axis',
+                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    legend: {
+                        data: ["市容环卫", "环保水务", "市政设施", "规土城建", "教育卫生", "安全隐患", "组织人事", "党纪政纪", "劳动社保", "社区管理", "交通运输", "治安维稳", "专业事件采集", "统一战线", "民政服务", "文体旅游", "食药市监", "党建群团"]
+                    },
+                    grid: {
+                            top: '20%',
+                            left: '3%',
+                            right: '4%',
+                            bottom: '5%',
+                            containLabel: true
+                        },
+                        xAxis: [
+                            {
+                                type: 'category',
+                                data: test2['结办类型']
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value'
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '市容环卫',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['市容环卫']
+                            },
+                            {
+                                name: '环保水务',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['环保水务']
+                            },
+                            {
+                                name: "市政设施",
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['市政设施']
+                            },
+                            {
+                                name: '规土城建',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['规土城建']
+                            },
+                            {
+                                name: '教育卫生',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['教育卫生']
+                            },
+                            {
+                                name: '安全隐患',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['安全隐患']
+                            },
+                            {
+                                name: '组织人事',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['组织人事']
+                            },
+                            {
+                                name: '党纪政纪',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['党纪政纪']
+                            },
+                            {
+                                name: '劳动社保',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['劳动社保']
+                            },
+                            {
+                                name: '社区管理',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['社区管理']
+                            },
+                            {
+                                name: '交通运输',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['交通运输']
+                            },
+                            {
+                                name: '治安维稳',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['治安维稳']
+                            },
+                            {
+                                name: '专业事件采集',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['专业事件采集']
+                            },
+                            {
+                                name: '统一战线',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['统一战线']
+                            },
+                            {
+                                name: '民政服务',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['民政服务']
+                            },
+                            {
+                                name: '文体旅游',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['文体旅游']
+                            },
+                            {
+                                name: '食药市监',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['食药市监']
+                            }, {
+                                name: '党建群团',
+                                type: 'bar',
+                                stack: '列1',
+                                data: test2['党建群团']
+                            }
+                        ]
+
+                };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart3.setOption(option);
+                </script>
+              <!--canvas id="myBarChart" width="100" height="50" type="pie"></canvas-->
+            </div>
+            <div class="card-footer small text-muted" id="show3">{{ date|safe}}</div>
+                <script>
+                    var str={{ date|safe}};
+                    document.getElementById("show3").innerHTML=str;
+                </script>
+          </div>
+        </div>
+        <!-- Example Pie Chart Card-->
+      </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small></small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">确认登出？</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">选择 "登出" 如果你确认退出登陆.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+            <a class="btn btn-primary" href="/Login/Logout">登出</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="/static/vendor/chart.js/Chart.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="/static/js/sb-admin-charts.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/static/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+    $('.form_month').datetimepicker({
+        language : 'zh-CN',
+        format : 'yyyy-mm',//日期格式
+        weekStart: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 3,
+        minView: 3,
+        forceParse: 0,
+        initialDate:'2018-08-27'
+    });
+
+    $('.form_start_end').datetimepicker({
+        language : 'zh-CN',
+        format : 'yyyy-mm-dd',//日期格式
+        weekStart: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        initialDate:'2018-08-27'
+    });
+</script>
+
+    <script src="/static/js/jquery.nav.js"></script>
+	<script>
+         function work1() {
+                var two=document.getElementById("collapseTwo");
+                two.className="in collapse"
+                var three=document.getElementById("collapse");
+                three.className="in collapse"
+                var month= document.getElementById("month");
+                month.value="";
+                var quarter= document.getElementById("quarter");
+                quarter[0].selected=true;
+                var start= document.getElementById("start");
+                start.value="";
+                var end= document.getElementById("end");
+                end.value="";
+        }
+        function work2() {
+                var one=document.getElementById("collapseOne");
+                one.className="in collapse"
+                var three=document.getElementById("collapse");
+                three.className="in collapse"
+                var month= document.getElementById("month");
+                month.value="";
+                var quarter= document.getElementById("quarter");
+                quarter[0].selected=true;
+                var start= document.getElementById("start");
+                start.value="";
+                var end= document.getElementById("end");
+                end.value="";
+        }
+        function work3() {
+                var one=document.getElementById("collapseOne");
+                one.className="in collapse"
+                var two=document.getElementById("collapseTwo");
+                two.className="in collapse"
+                var month= document.getElementById("month");
+                month.value="";
+                var quarter= document.getElementById("quarter");
+                quarter[0].selected=true;
+                var start= document.getElementById("start");
+                start.value="";
+                var end= document.getElementById("end");
+                end.value="";
+        }
+		$(document).ready(function() {
+			$('#nav2').onePageNav();
+		});
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>欢迎登陆</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.default.css" id="theme-stylesheet">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon" />
+        <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style type="text/css"></style>
+      <style>
+    .code
+    {
+         font-family:Arial;
+         font-style:italic;
+         color:blue;
+         font-size:30px;
+         border:0;
+         padding:2px 3px;
+         letter-spacing:3px;
+         font-weight:bolder;
+         float:left;
+         cursor:pointer;
+         width:150px;
+         height:40px;
+         line-height:60px;
+         text-align:center;
+         vertical-align:middle;
+         background-color: #ffffff;
+     }
+     span {
+        text-decoration:none;
+        font-size:12px;
+        color: #288bc4;
+        padding-left:10px;
+    }
+
+    span:hover {
+        text-decoration:underline;
+        cursor:pointer;
+    }
+
+</style><!--验证码-->
+  </head>
+  <body>
+    <div class="page login-page">
+      <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+          <div class="row">
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6 " >
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>欢迎登录</h1>
+                  </div>
+                  <p>坪山区政府大数据治理平台</p>
+                </div>
+              </div>
+            </div>
+            <!-- Form Panel    -->
+            <div class="col-lg-6 bg-white">
+              <div class="form d-flex align-items-center">
+                <div class="content">
+                  <form method="post" action="/Login/" class="form-validate" id="loginFrom"  onsubmit= "return validateCode()">
+                      {% csrf_token %}
+                    <div class="form-group">
+                      <input id="login-username" type="text" name="uname" required data-msg="请输入用户名" placeholder="用户名"  class="input-material">
+                    </div>
+                    <div class="form-group">
+                      <input id="login-password" style ="width:370px;" type="password" name="upwd" required data-msg="请输入密码" placeholder="密码" class="input-material">
+                        		<i class="fa fa-eye" id="demo_img" onclick="hideShowPsw()"></i>
+
+                    </div>
+
+                      <div>
+                        <table border="0" cellspacing="0" cellpadding="4" >
+                            <tr>
+                                <td> <div id="checkCode" class="code"  onclick="createCode(4)" ></div></td>
+                                <td> <input id="inputCode" type="text"  placeholder="请输入验证码"  class="small form-control"></td>
+                                <td> <small onclick="createCode(4)">点我换一张</small></td>
+                            </tr>
+                        </table>
+                      </div>
+                    <br/>
+                    <br/>
+                    <div style="margin-top: -30px;">
+                      <button id="login" type="submit"  class="btn btn-info">登录</button>
+                        <a href="/Login/Register/" class="signup">&nbsp;&nbsp; 没有账号? 注册</a>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/vendor/jquery-validation/jquery.validate.min.js"></script><!--表单验证-->
+    <!-- Main File-->
+    <script src="/static/js/front.js"></script>
+    <script>
+        window.onload= function(){
+            createCode(4);
+        }
+
+
+        function createCode(length) {
+                var code = "";
+                var codeLength = parseInt(length); //验证码的长度
+                var checkCode = document.getElementById("checkCode");
+                ////所有候选组成验证码的字符，当然也可以用中文的
+                var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+                //循环组成验证码的字符串
+                for (var i = 0; i < codeLength; i++)
+                {
+                    //获取随机验证码下标
+                    var charNum = Math.floor(Math.random() * 62);
+                    //组合成指定字符验证码
+                    code += codeChars[charNum];
+                }
+                if (checkCode)
+                {
+                    //为验证码区域添加样式名
+                    checkCode.className = "code";
+                    //将生成验证码赋值到显示区
+                    checkCode.innerHTML = code;
+                }
+            }
+
+            //检查验证码是否正确
+            function validateCode()
+            {
+                //获取显示区生成的验证码
+                var checkCode = document.getElementById("checkCode").innerHTML;
+                //获取输入的验证码
+                var inputCode = document.getElementById("inputCode").value;
+                //console.log(checkCode);
+                //console.log(inputCode);
+                if (inputCode.length <= 0)
+                {
+                    alert("请输入验证码！");
+                    return false;
+                }
+                else if (inputCode.toUpperCase() != checkCode.toUpperCase())
+                {
+                    alert("验证码输入有误！");
+                    return false;
+                    createCode(4);
+                }
+                else
+                {
+                    alert("验证码正确！");
+                    return true;
+                }
+            }
+    </script>
+  <script type="text/javascript">
+	// 这里使用最原始的js语法实现，可对应换成jquery语法进行逻辑控制
+	var demoImg = document.getElementById("demo_img");
+	var demoInput = document.getElementById("login-password");
+    //隐藏text block，显示password block
+	function hideShowPsw(){
+		if (demoInput.type == "password") {
+			demoInput.type = "text";
+			demoImg.className="fa fa-eye-slash"
+		}else {
+			demoInput.type = "password";
+			demoImg.className="fa fa-eye"
+		}
+	}
+</script>
+  </body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>坪山区政府大数据管理平台</title>
+  <!-- Bootstrap core CSS-->
+  <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="/static/css/sb-admin.css" rel="stylesheet">
+  <!-- 引入 echarts.js -->
+  <script src="/static/js/echarts.min.js"></script>
+  <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon" />
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+
+    <!-- 头部导航-->
+    <a class="navbar-brand" href="index1.html">坪山区政府大数据管理平台</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- 左侧导航-->
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="/View/View1">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">查看百分比</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="/View/View2">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text">各街道名声事件情况</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="/View/View3">
+            <i class="fa fa-fw fa-table"></i>
+            <span class="nav-link-text">查看热点社区</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="/View/View4">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">事件结办情况</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="/Alarm/">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text">查看未结办事件</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i class="fa fa-fw fa-angle-left"></i>
+          </a>
+        </li>
+      </ul>
+        <!--头部栏-->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-envelope"></i>
+            <span class="d-lg-none">留言
+              <span class="badge badge-pill badge-primary">12条新留言</span>
+            </span>
+            <span class="indicator text-primary d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+          </a>
+            <!--留言-->
+          <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+            <h6 class="dropdown-header">新留言:</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <strong>卢局长</strong>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">请各办公室注意做好清洁工作.</div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item small" href="#">查看所有留言</a>
+          </div>
+        </li>
+            <!--警报-->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-bell"></i>
+            <span class="d-lg-none">警报
+              <span class="badge badge-pill badge-warning">6条新警报</span>
+            </span>
+            <span class="indicator text-warning d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+            <h6 class="dropdown-header">新警报:</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <span class="text-success">
+                <strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i>自动通报</strong>
+              </span>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">自动检查到某街道出现大量上报 请检查</div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item small" href="#">查看所有警报</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-fw fa-sign-out"></i>登出</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Charts</li>
+      </ol>
+      <div class="row">
+          <!-- import data Chart Example-->
+        <div class="col-lg-8">
+            <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-area-chart"></i>图1</div>
+            <div class="card-body">
+                <div id="main" style="width: 600px;height:400px;"></div>
+                <script>
+                    // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('main'));
+                var test2 =  {{ msg_json|safe}}
+                option = {
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                legend: {
+                    data:['value1','value2','value3']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : test2["街道名"]
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'value1',
+                        type:'bar',
+                        stack: '广告',
+                        data:test2["市容城管"]
+                    },
+                    {
+                        name:'value2',
+                        type:'bar',
+                        stack: '广告',
+                        data:test2["禽畜养殖污染"]
+                    },
+                    {
+                        name:'value3',
+                        type:'bar',
+                        stack: '广告',
+                        data:test2["商业经营噪声"]
+                    }
+
+                ]
+            };
+
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                </script>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+        </div>
+          <!-- Example Bar Chart Card-->
+        <div class="col-lg-8">
+            <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i> 图2</div>
+            <div class="card-body">
+                <div id="main3" style="width: 600px;height:400px;"></div>
+                <!-- Example Bar Chart Card-->
+                <script>
+                    var myChart2 = echarts.init(document.getElementById('main3'));
+                    var option = {
+        //标题，每个图表最多仅有一个标题控件，每个标题控件可设主副标题
+        title: {
+            //主标题文本，'\n'指定换行
+            text: 'title_text',
+            //主标题文本超链接
+            link: 'http://blog.csdn.net/psm948832626',
+            //副标题文本，'\n'指定换行
+            subtext: 'title_subtext',
+            //副标题文本超链接
+            sublink: 'http://blog.csdn.net/psm948832626',
+            //水平安放位置，默认为左侧，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+            x: 'left',
+            //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
+            y: 'top'
+        },
+        //提示框，鼠标悬浮交互时的信息提示
+        tooltip: {
+            //触发类型，默认（'item'）数据触发，可选为：'item' | 'axis'
+            trigger: 'axis'
+        },
+        //图例，每个图表最多仅有一个图例
+        legend: {
+            //显示策略，可选为：true（显示） | false（隐藏），默认值为true
+            show: true,
+            //水平安放位置，默认为全图居中，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+            x: 'center',
+            //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
+            y: 'top',
+            //legend的data: 用于设置图例，data内的字符串数组需要与sereis数组内每一个series的name值对应
+            data: ['蒸发量', '降水量']
+        },
+        //工具箱，每个图表最多仅有一个工具箱
+        toolbox: {
+            //显示策略，可选为：true（显示） | false（隐藏），默认值为false
+            show: true,
+            //启用功能，目前支持feature，工具箱自定义功能回调处理
+            feature: {
+                //辅助线标志
+                mark: { show: true },
+                //dataZoom，框选区域缩放，自动与存在的dataZoom控件同步，分别是启用，缩放后退
+                dataZoom: {
+                    show: true,
+                    title: {
+                        dataZoom: '区域缩放',
+                        dataZoomReset: '区域缩放后退'
+                    }
+                },
+                //数据视图，打开数据视图，可设置更多属性,readOnly 默认数据视图为只读(即值为true)，可指定readOnly为false打开编辑功能
+                dataView: { show: true, readOnly: true },
+                //magicType，动态类型切换，支持直角系下的折线图、柱状图、堆积、平铺转换
+                magicType: { show: true, type: ['line', 'bar'] },
+                //restore，还原，复位原始图表
+                restore: { show: true },
+                //saveAsImage，保存图片（IE8-不支持）,图片类型默认为'png'
+                saveAsImage: { show: true }
+            }
+        },
+        //是否启用拖拽重计算特性，默认关闭(即值为false)
+        calculable: true,
+        //直角坐标系中横轴数组，数组中每一项代表一条横轴坐标轴，仅有一条时可省略数值
+        //横轴通常为类目型，但条形图时则横轴为数值型，散点图时则横纵均为数值型
+        xAxis: [{
+            //显示策略，可选为：true（显示） | false（隐藏），默认值为true
+            show: true,
+            //坐标轴类型，横轴默认为类目型'category'
+            type: 'category',
+            //类目型坐标轴文本标签数组，指定label内容。 数组项通常为文本，'\n'指定换行
+            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+            axisLabel: {
+                interval: 3 //0：表示全部显示不间隔；auto:表示自动根据刻度个数和宽度自动设置间隔个数
+            }
+        }],
+        //直角坐标系中纵轴数组，数组中每一项代表一条纵轴坐标轴，仅有一条时可省略数值
+        //纵轴通常为数值型，但条形图时则纵轴为类目型
+        yAxis: [{
+            //显示策略，可选为：true（显示） | false（隐藏），默认值为true
+            show: true,
+            //坐标轴类型，纵轴默认为数值型'value'
+            type: 'value',
+            //分隔区域，默认不显示
+            splitArea: { show: true }
+        }],
+
+        //sereis的数据: 用于设置图表数据之用。series是一个对象嵌套的结构；对象内包含对象
+        series: [{
+                //系列名称，如果启用legend，该值将被legend.data索引相关
+                name: '蒸发量',
+                //图表类型，必要参数！如为空或不支持类型，则该系列数据不被显示。
+                type: 'bar',
+                //系列中的数据内容数组，折线图以及柱状图时数组长度等于所使用类目轴文本标签数组axis.data的长度，并且他们间是一一对应的。数组项通常为数值
+                data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+                //系列中的数据标注内容
+                markPoint: {
+                    data: [
+                        { type: 'max', name: '最大值' },
+                        { type: 'min', name: '最小值' }
+                    ]
+                },
+                //系列中的数据标线内容
+                markLine: {
+                    data: [
+                        { type: 'average', name: '平均值' }
+                    ]
+                }
+            },
+            {
+                //系列名称，如果启用legend，该值将被legend.data索引相关
+                name: '降水量',
+                //图表类型，必要参数！如为空或不支持类型，则该系列数据不被显示。
+                type: 'bar',
+                //系列中的数据内容数组，折线图以及柱状图时数组长度等于所使用类目轴文本标签数组axis.data的长度，并且他们间是一一对应的。数组项通常为数值
+                data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+                //系列中的数据标注内容
+                markPoint: {
+                    data: [
+                        { type: 'max', name: '最大值' },
+                        { type: 'min', name: '最小值' }
+                    ]
+                },
+                //系列中的数据标线内容
+                markLine: {
+                    data: [
+                        { type: 'average', name: '平均值' }
+                    ]
+                }
+            }
+        ]
+    };
+                    myChart2.setOption(option);
+                </script>
+              <!--canvas id="myBarChart" width="100" height="50" type="pie"></canvas-->
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+        </div>
+        <!-- Example Pie Chart Card-->
+        <div class="col-lg-8">
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-pie-chart"></i>图3</div>
+            <div class="card-body">
+                <div id="main4" style="width: 600px;height:400px;"></div>
+                <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main4'));
+        var test2 =  {{ msg_json_pie|safe}}
+            console.log(test2);
+            console.log(test2['数量'][0]);
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data:test2["问题性质"]
+            },
+            series: [
+                {
+                    name:'问题性质',
+                    type:'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data:[
+                        {value:test2['数量'][0], name:'投诉'},
+                        {value:test2['数量'][1], name:'咨询'},
+                        {value:test2['数量'][2], name:'建议'},
+                        {value:test2['数量'][3], name:'感谢'},
+                        {value:test2['数量'][4], name:'求决'},
+                        {value:test2['数量'][5], name:'空缺'},
+                    ]
+                }
+            ]
+};
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+              <!--canvas id="myPieChart" width="100%" height="100"></canvas-->
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © Your Website 2017 / More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">确认登出？</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">选择 "登出" 如果你确认退出登陆.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+            <a class="btn btn-primary" href="/Login/Logout">登出</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="/static/vendor/chart.js/Chart.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="/static/js/sb-admin-charts.min.js"></script>
+  </div>
+
+</body>
+
+</html>

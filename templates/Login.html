@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon" />
+    <title>Title</title>
+</head>
+<body>
+    <form action="/Login/" method="post">
+        {% csrf_token %}
+        <p>
+            <label for="ua">用户名：</label><input type="text" name="uname" id="ua"/>
+        </p>
+        <p>
+            <label for="up">密&emsp;码：</label><input type="password" name="upwd" id="up"/>
+        </p>
+        <p>
+            <input type="submit" value="登录"/>
+        </p>
+
+    </form>
+</body>
+</html>

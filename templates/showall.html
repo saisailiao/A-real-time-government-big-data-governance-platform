@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table border="1" cellspacing="0">
+         <tr>
+             <th>事件id</th>
+             <th>事件类型</th>
+             <th>投诉方式</th>
+             <th>街道名称</th>
+         </tr>
+
+        {% for data in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{data.event_type_name}}</td>
+                <td>{{data.event_src_name }}</td>
+                <td>{{ data.street_name }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>坪山区政府大数据管理平台</title>
+  <!-- Bootstrap core CSS-->
+  <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="/static/css/sb-admin.css" rel="stylesheet">
+  <!-- 引入 echarts.js -->
+  <script src="/static/js/echarts.min.js"></script>
+  <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon" />
+  <link href="/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <script src="/static/js/spop.js"></script>
+    <link href="/static/css/spop.css" rel="stylesheet">
+    <style>
+    #nav2 {
+			background: #2f333e;
+			left: 0;
+			list-style: none;
+			overflow: hidden;
+			padding-top: 10px;
+			position: fixed;
+			right: 0;
+			text-align: center;
+			bottom:-16px;
+		}
+		#nav2 li {
+			display: inline-block;
+			margin-bottom: 0;
+		}
+		#nav2 a {
+			background: #2f333e;
+            text-decoration: none;
+			color:  rgba(255, 255, 255, 0.5);
+			display: block;
+			padding: 10px;
+		}
+		#nav2 a:hover {
+			background: none;
+			color: rgba(255, 255, 255, 0.75);
+		}
+		#nav2 .current a {
+			background: #2f333e;
+			color: #dadada;
+		}
+    </style>
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<div class="position" id="mafan"></div>
+   <script> spop({
+    template : '<h5 class="spop-title">警报</h5>坪山街道 六联社区 道路破损<br/> <br/><a href="/Alarm" data-spop="close">查看全部警报</a>',
+    style : 'error',
+    position  : 'top-right',
+    });
+    </script>
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+
+    <!-- 头部导航-->
+    <a class="navbar-brand" href="/View/">坪山区政府大数据管理平台</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- 底部导航-->
+    <div class = "side_menu">
+    <ul id="nav2">
+    <li><a href="#chart1">饼状图</a></li>
+    <li><a href="#chart2">柱状图</a></li>
+    <li><a href="#page-top"><i class="fa fa-arrow-up"></i>回到顶端</a></li>
+    <li><a href="#mafan"></a></li>
+    </ul>
+    </div>
+    <!-- 左侧导航-->
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="/View/View1">
+            <i class="fa fa-fw fa-pie-chart"></i>
+            <span class="nav-link-text">查看百分比</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="/View/View2">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text">各街道民生事件情况</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="/View/View3">
+            <i class="fa fa-fw fa-map"></i>
+            <span class="nav-link-text">查看热点社区</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link" href="/View/View4">
+            <i class="fa fa-fw fa-bar-chart"></i>
+            <span class="nav-link-text">事件结办情况</span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <a class="nav-link" href="/Alarm/">
+            <i class="fa fa-fw fa-calendar-check-o"></i>
+            <span class="nav-link-text">警报 未结办事件</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i class="fa fa-fw fa-angle-left"></i>
+          </a>
+        </li>
+      </ul>
+        <!--头部栏-->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-envelope"></i>
+            <span class="d-lg-none">留言
+              <span class="badge badge-pill badge-primary">12条新留言</span>
+            </span>
+            <span class="indicator text-primary d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+          </a>
+            <!--留言-->
+          <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+            <h6 class="dropdown-header">新留言:</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">
+              <strong>卢局长</strong>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">请各办公室注意做好清洁工作.</div>
+            </a>
+
+        </li>
+            <!--警报-->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-bell"></i>
+            <span class="d-lg-none">警报
+              <span class="badge badge-pill badge-warning">6条新警报</span>
+            </span>
+            <span class="indicator text-warning d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+            <h6 class="dropdown-header">新警报:</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/Alarm">
+              <span class="text-success">
+                <strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i>自动通报</strong>
+              </span>
+              <span class="small float-right text-muted">11:21 AM</span>
+              <div class="dropdown-message small">坪山街道 六联社区 道路破损</div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item small" href="/Alarm">查看所有警报</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-fw fa-sign-out"></i>登出</a>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="/View">首页</a>
+        </li>
+        <li class="breadcrumb-item active">查看百分比</li>
+      </ol>
+      <div class="row">
+          <!-- import data Chart Example-->
+        <div class="col-lg-12" id="chart1">
+            <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-pie-chart"></i>饼状图</div>
+            <div class="card-body">
+              <div class="row">
+                <div id="main" style="width: 600px;height:400px;"></div>
+                <script>
+                    // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('main'),'light');
+                var test2 =  {{ msg_json|safe}}
+                option = {
+                toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data:test2["问题性质"]
+                },
+                series: [
+                    {
+                        name:'问题性质',
+                        type:'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data:[
+                            {value:test2['数量'][0], name:'投诉'},
+                            {value:test2['数量'][1], name:'咨询'},
+                            {value:test2['数量'][2], name:'建议'},
+                            {value:test2['数量'][3], name:'感谢'},
+                            {value:test2['数量'][4], name:'求决'},
+                            {value:test2['数量'][5], name:'空缺'},
+                        ]
+                    }
+                ]
+};
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                </script>
+                <form method="get" action="/View/View1"  class="form-inline">
+                    <div class="container">
+                      <div class="col form-group">
+                          <div class="col-lg-5 col-md-6">
+                              <label for="start_all"></label>
+                              <input class="form-control form_date" name="start_in_total" id="start_all" type="text" placeholder="请选择开始日期" readonly>
+                          </div>
+                      </div>
+                      <p></p>
+                      <div class="col form-group">
+                          <div class="col-lg-5 col-md-6">
+                              <label for="end_all"></label>
+                              <input class="form-control form_date" name="end_in_total" id="end_all" type="text" placeholder="请选择结束日期" readonly>
+                          </div>
+                      </div>
+                      <p></p>
+                      <div class="col form-group">
+                        <div class="col-lg-5 col-md-6">
+                            <!--input type="submit" value="查询"/-->
+                            <button type="submit" class="btn btn-primary">查询</button>
+                        </div>
+                      </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="card-footer small text-muted" id="show1"></div>
+                <script>
+                    var str={{ date|safe}};
+                    document.getElementById("show1").innerHTML=str;
+                </script>
+          </div>
+        </div>
+          <!-- Example Bar Chart Card-->
+        <div class="col-lg-12" id="chart2">
+            <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i>柱状图</div>
+            <div class="card-body">
+                <div id="main3" style="width: 600px;height:400px;"></div>
+                <!-- Example Bar Chart Card-->
+                <script>
+                    var myChart2 = echarts.init(document.getElementById('main3'),'light');
+                    var test2 = {{ msg_json|safe}}
+                    option = {
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {
+                                type: 'shadow'
+                            }
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: test2["问题性质"]
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [{
+                            data: test2['数量'],
+                            type: 'bar',
+                            itemStyle: {
+                                normal: {
+                                    //每根柱子颜色设置
+                                    color: function (params) {
+                                        let colorList = ['#37A2DA', '#32C5E9', '#67E0E3', '#9FE6B8', '#FFDB5C','#ff9f7f'
+                                        ];
+                                        return colorList[params.dataIndex];
+                                    }
+                                }
+                            }
+                        }]
+                    };
+                    myChart2.setOption(option);
+                </script>
+              <!--canvas id="myBarChart" width="100" height="50" type="pie"></canvas-->
+            </div>
+            <div class="card-footer small text-muted" id="show2"></div>
+                <script>
+                    var str={{ date|safe}};
+                    document.getElementById("show2").innerHTML=str;
+                </script>
+          </div>
+        </div>
+        <!-- Example Pie Chart Card-->
+      </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small></small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">确认登出？</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">选择 "登出" 如果你确认退出登陆.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+            <a class="btn btn-primary" href="/Login/Logout">登出</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  <!-- Bootstrap core JavaScript-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="/static/vendor/chart.js/Chart.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="/static/js/sb-admin-charts.min.js"></script>
+
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/static/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+    $('.form_date').datetimepicker({
+        language : 'zh-CN',
+        format : 'yyyy-mm-dd',//日期格式
+        weekStart: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        initialDate:'2018-08-27'
+    });
+</script>
+    <script src="/static/js/jquery.nav.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#nav2').onePageNav();
+		});
+	</script>
+
+
+</body>
+</html>
